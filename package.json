@@ -1,0 +1,53 @@
+{
+  "name": "sanity-type-generator",
+  "version": "1.0.0",
+  "types": "./dist/index.d.ts",
+  "source": "./src/index.ts",
+  "module": "./dist/index.js",
+  "main": "./dist/index.cjs",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "source": "./src/index.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "dev": "pkg watch",
+    "build": "pkg build",
+    "_build": "pkg build && yalc publish --push",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Ash",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@sanity/pkg-utils": "^2.2.1",
+    "@swc-node/register": "^1.5.4",
+    "@types/node": "^18.11.18",
+    "@types/prompts": "^2.4.2",
+    "prettier": "^2.8.3",
+    "rxjs": "^7.8.0",
+    "sanity": "^3.0.6",
+    "ts-node": "^10.9.1",
+    "typescipt": "^1.0.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "camelcase": "^7.0.1",
+    "decamelize": "^6.0.0",
+    "esbuild-register": "^3.4.2",
+    "jsdom-global": "^3.0.2",
+    "pirates": "^4.0.5",
+    "prompts": "^2.4.2",
+    "read-pkg-up": "^9.1.0",
+    "resolve-from": "^5.0.0"
+  },
+  "peerDependencies": {
+    "sanity": "^3.0.6"
+  }
+}
