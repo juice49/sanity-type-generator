@@ -19,7 +19,7 @@ import {
 
 import camelCase from 'camelcase'
 import decamelize from 'decamelize'
-import resolveStudioConfig from './resolve-studio-config'
+import resolveStudioConfig from './lib/resolve-studio-config'
 
 /**
  * @public

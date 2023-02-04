@@ -3,7 +3,7 @@ import { defineConfig } from '@sanity/pkg-utils'
 export default defineConfig({
   bundles: [
     {
-      source: './src/resolve-studio-config-worker.ts',
+      source: './src/lib/resolve-studio-config/worker.ts',
       require: './dist/resolve-studio-config-worker.js',
       runtime: 'node',
     },
