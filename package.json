@@ -29,13 +29,11 @@
   "description": "",
   "devDependencies": {
     "@sanity/pkg-utils": "^2.2.1",
-    "@swc-node/register": "^1.5.4",
     "@types/node": "^18.11.18",
     "@types/prompts": "^2.4.2",
     "prettier": "^2.8.3",
     "rxjs": "^7.8.0",
     "sanity": "^3.0.6",
-    "ts-node": "^10.9.1",
     "typescipt": "^1.0.0",
     "vitest": "^0.28.4"
   },
