@@ -5,6 +5,9 @@
   "source": "./src/index.ts",
   "module": "./dist/index.js",
   "main": "./dist/index.cjs",
+  "bin": {
+    "sanity-type-generator": "./bin/sanity-type-generator.js"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
