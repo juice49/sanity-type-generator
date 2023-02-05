@@ -20,6 +20,7 @@ import {
 import camelCase from 'camelcase'
 import decamelize from 'decamelize'
 import resolveStudioConfig from './resolve-studio-config'
+import isEnoent from './is-enoent'
 
 /**
  * @public
@@ -274,10 +275,6 @@ function getFullDestinationPath(
     path.join(process.cwd(), destinationPath, getFilename(workspaceName)) +
     '.ts'
   )
-}
-
-function isEnoent(error: any): error is { code: 'ENOENT' } {
-  return error instanceof Error && 'code' in error && error.code === 'ENOENT'
 }
 
 async function maybeWriteFile(path: string, content: string): Promise<any> {
