@@ -1,10 +1,13 @@
 import path from 'node:path'
 import { Worker } from 'node:worker_threads'
+import { fileURLToPath } from 'node:url'
 import { Workspace } from 'sanity'
 import { readPackageUp } from 'read-pkg-up'
 
 export default async function resolveStudioConfig(): Promise<Workspace[]> {
-  const rootPkgPath = (await readPackageUp({ cwd: __dirname }))?.path
+  const rootPkgPath = (
+    await readPackageUp({ cwd: path.dirname(fileURLToPath(import.meta.url)) })
+  )?.path
 
   if (!rootPkgPath) {
     throw new Error('Could not find root directory for `sanity` package')

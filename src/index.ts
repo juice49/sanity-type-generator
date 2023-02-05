@@ -1,6 +1,7 @@
 import path from 'node:path'
 import { Stats } from 'node:fs'
 import { parseArgs } from 'node:util'
+import { fileURLToPath } from 'node:url'
 import { readFile, writeFile, mkdir, stat } from 'node:fs/promises'
 import prompts from 'prompts'
 
@@ -247,9 +248,17 @@ function indent(depth: number): string {
 }
 
 async function loadSystemTypes(): Promise<string> {
-  return await readFile(path.join(__dirname, '..', 'src', 'system-types.ts'), {
-    encoding: 'utf8',
-  })
+  return await readFile(
+    path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      '..',
+      'src',
+      'system-types.ts',
+    ),
+    {
+      encoding: 'utf8',
+    },
+  )
 }
 
 function getSchemasByWorkspaceName(
