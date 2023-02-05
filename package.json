@@ -21,7 +21,7 @@
     "dev": "pkg watch",
     "build": "pkg build",
     "_build": "pkg build && yalc publish --push",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run"
   },
   "keywords": [],
   "author": "Ash",
@@ -36,7 +36,8 @@
     "rxjs": "^7.8.0",
     "sanity": "^3.0.6",
     "ts-node": "^10.9.1",
-    "typescipt": "^1.0.0"
+    "typescipt": "^1.0.0",
+    "vitest": "^0.28.4"
   },
   "type": "module",
   "dependencies": {
