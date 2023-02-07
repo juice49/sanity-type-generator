@@ -1,6 +1,6 @@
 {
   "name": "sanity-type-generator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "types": "./dist/index.d.ts",
   "source": "./src/index.ts",
   "module": "./dist/index.js",
