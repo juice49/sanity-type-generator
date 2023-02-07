@@ -17,6 +17,10 @@
     },
     "./package.json": "./package.json"
   },
+  "files": [
+    "./src/system-types.ts",
+    "./dist"
+  ],
   "scripts": {
     "dev": "pkg watch",
     "build": "pkg build",
