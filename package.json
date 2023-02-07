@@ -30,6 +30,7 @@
   "keywords": [],
   "author": "Ash",
   "license": "ISC",
+  "repository": "juice49/sanity-type-generator",
   "description": "",
   "devDependencies": {
     "@sanity/pkg-utils": "^2.2.1",
