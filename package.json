@@ -45,6 +45,7 @@
   "dependencies": {
     "camelcase": "^7.0.1",
     "decamelize": "^6.0.0",
+    "esbuild": "^0.17.6",
     "esbuild-register": "^3.4.2",
     "jsdom-global": "^3.0.2",
     "pirates": "^4.0.5",
