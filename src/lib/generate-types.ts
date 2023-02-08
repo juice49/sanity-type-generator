@@ -8,11 +8,10 @@ import {
   type Schema,
   Workspace,
   SchemaTypeDefinition,
-  ReferenceSchemaType,
   IntrinsicDefinitions,
+  TypeReference,
   ArraySchemaType,
   SchemaType,
-  ObjectSchemaType,
   BaseSchemaType,
   FieldDefinition,
 } from 'sanity'
@@ -206,19 +205,12 @@ function createType(
   )
 }
 
-function objectSchemaHasType(
-  type: ObjectSchemaType,
-  // ): type is ObjectSchemaType & { type: string } {
-): type is ObjectSchemaType & Required<Pick<ObjectSchemaType, 'type'>> {
-  return typeof type.type === 'string'
-}
-
-function createReferenceType({ to, ...rest }: ReferenceSchemaType): string {
-  const referenceType = to
-    .filter(objectSchemaHasType)
-    .map(({ type }) => createTypeName(type))
-    .join(' | ')
-
+function createReferenceType({
+  to,
+}: {
+  to: (SchemaTypeDefinition | TypeReference)[]
+}): string {
+  const referenceType = to.map(({ type }) => createTypeName(type)).join(' | ')
   return `SanityReference<${referenceType}>`
 }
 
