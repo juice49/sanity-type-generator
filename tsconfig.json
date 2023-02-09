@@ -1,5 +1,6 @@
 {
   "include": ["./src"],
+  "exclude": ["./src/system-types.ts"],
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "./dist",
