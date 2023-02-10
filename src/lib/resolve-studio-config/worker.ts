@@ -1,9 +1,9 @@
-import { parentPort, workerData } from 'node:worker_threads'
+import { parentPort } from 'node:worker_threads'
 import fs from 'node:fs'
 import path from 'node:path'
 import { firstValueFrom } from 'rxjs'
 import mockBrowserEnvironment from './mock-browser-environment'
-import { resolveConfig, Config, Workspace } from 'sanity'
+import { resolveConfig, Config } from 'sanity'
 
 const candidates = [
   'sanity.config.js',
@@ -12,12 +12,7 @@ const candidates = [
   'sanity.config.tsx',
 ]
 
-// const basePath = '.'
 const basePath = process.cwd()
-
-// parentPort?.postMessage('basePath: ' + basePath)
-
-// const cleanup = mockBrowserEnvironment('.')
 const cleanup = mockBrowserEnvironment(basePath)
 
 const configPath = candidates
@@ -30,10 +25,6 @@ if (!configPath) {
   )
 }
 
-// parentPort?.postMessage(configPath)
-
-// parentPort?.postMessage(configPath)
-
 let config: Config | undefined
 
 try {
@@ -45,15 +36,11 @@ try {
   })
 }
 
-// parentPort?.postMessage(JSON.stringify(config, null, 2))
-// process.exit()
-
 ;(async () => {
   if (config) {
     try {
       const workspaces = await firstValueFrom(resolveConfig(config))
       parentPort?.postMessage(JSON.stringify(workspaces))
-      // parentPort?.postMessage('done')
     } catch (error) {
       throw new Error(`Resolve config failed`, {
         cause: error,
