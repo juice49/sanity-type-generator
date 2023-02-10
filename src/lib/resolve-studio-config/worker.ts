@@ -39,13 +39,10 @@ let config: Config | undefined
 try {
   const mod = require(path.resolve(process.cwd(), configPath))
   config = mod.__esModule && mod.default ? mod.default : mod
-} catch (err) {
-  throw new Error(
-    `Failed to load configuration file "${configPath}":\n${err.message}`,
-    {
-      cause: err,
-    },
-  )
+} catch (error) {
+  throw new Error(`Failed to load configuration file "${configPath}"`, {
+    cause: error,
+  })
 }
 
 // parentPort?.postMessage(JSON.stringify(config, null, 2))
@@ -58,7 +55,7 @@ try {
       parentPort?.postMessage(JSON.stringify(workspaces))
       // parentPort?.postMessage('done')
     } catch (error) {
-      throw new Error(`Resolve config failed:\n${error.message}`, {
+      throw new Error(`Resolve config failed`, {
         cause: error,
       })
     }
