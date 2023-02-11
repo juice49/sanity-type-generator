@@ -152,7 +152,7 @@ function createType(
       const extension =
         type.type === 'document' ? ' extends SanityDocument' : ''
 
-      if (['object', 'document'].includes(type.type)) {
+      if (['object', 'document'].includes(String(type.type))) {
         return `export interface ${createTypeName(type.name)}${extension} {\n${
           typeField + output
         }\n}\n`
@@ -165,7 +165,7 @@ function createType(
       throw new Error('No output for: ' + type.name)
     }
 
-    if (['object', 'document'].includes(type.type)) {
+    if (['object', 'document'].includes(String(type.type))) {
       return '{\n' + output + '\n' + indent(depth) + '}'
     }
 
