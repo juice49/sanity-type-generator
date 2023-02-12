@@ -54,7 +54,7 @@ function entryHasOriginalSchema(
 /**
  * @public
  */
-export default async function generateTypes({
+export async function generateTypes({
   destinationPath = defaultDestinationPath,
   getFilename = defaultGetFilename,
   force = false,
