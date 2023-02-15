@@ -218,14 +218,14 @@ function createReferenceType({
 }: {
   to: (SchemaTypeDefinition | TypeReference)[]
 }): string {
-  const referenceType = to.map(({ type }) => createTypeName(type)).join(' | ')
+  const referenceType = createUnion(to.map(({ type }) => createTypeName(type)))
   return `SanityReference<${referenceType}>`
 }
 
 function createArrayType(type: ArraySchemaType): string {
-  const arrayType = type.of
-    .map(arrayMember => createType(arrayMember, 1))
-    .join(' | ')
+  const arrayType = createUnion(
+    type.of.map(arrayMember => createType(arrayMember, 1)),
+  )
 
   const isGroup = type.of.length !== 1
 
