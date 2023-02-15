@@ -148,6 +148,7 @@ function isIntrinsic(
 function createType(
   type: SchemaTypeDefinition | BaseSchemaType | FieldDefinition,
   depth: number = 0,
+  nullable: boolean = true,
 ): string {
   function template(output: string): string {
     if (depth === 0) {
@@ -175,6 +176,10 @@ function createType(
 
     if (['object', 'document'].includes(String(type.type))) {
       return '{\n' + output + '\n' + indent(depth) + '}'
+    }
+
+    if (nullable) {
+      return createNullable(output)
     }
 
     return output
@@ -224,7 +229,7 @@ function createReferenceType({
 
 function createArrayType(type: ArraySchemaType): string {
   const arrayType = createUnion(
-    type.of.map(arrayMember => createType(arrayMember, 1)),
+    type.of.map(arrayMember => createType(arrayMember, 1, false)),
   )
 
   const isGroup = type.of.length !== 1
