@@ -131,6 +131,14 @@ const intrinsics: Omit<
   text: 'string',
 }
 
+function createUnion(types: string[]): string {
+  return [...new Set(types)].join(' | ')
+}
+
+function createNullable(type: string): string {
+  return createUnion([type, 'null'])
+}
+
 function isIntrinsic(
   name?: string | SchemaType,
 ): name is keyof typeof intrinsics {
