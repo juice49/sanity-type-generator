@@ -107,8 +107,15 @@ function createTypeName(name: string): string {
   })
 }
 
+interface Context {
+  depth: number
+}
+
 const intrinsics: Omit<
-  Record<keyof IntrinsicDefinitions, string | ((type: any) => string)>,
+  Record<
+    keyof IntrinsicDefinitions,
+    string | ((type: any, context: Context) => string)
+  >,
   | 'object'
   | 'document'
   // Handled by Studio.
@@ -188,7 +195,11 @@ function createType(
   const intrinsic = isIntrinsic(type.type) ? intrinsics[type.type] : undefined
 
   if (typeof intrinsic === 'function') {
-    return template(intrinsic(type))
+    return template(
+      intrinsic(type, {
+        depth,
+      }),
+    )
   }
 
   if (typeof intrinsic === 'string') {
