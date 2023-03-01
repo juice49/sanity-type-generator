@@ -240,7 +240,9 @@ function createReferenceType({
 
 function createArrayType(type: ArraySchemaType, { depth }: Context): string {
   const arrayType = createUnion(
-    type.of.map(arrayMember => createType(arrayMember, depth, false)),
+    type.of.map(
+      arrayMember => `ArrayMember<${createType(arrayMember, depth, false)}>`,
+    ),
   )
 
   const isGroup = type.of.length !== 1
