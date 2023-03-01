@@ -24,7 +24,7 @@ export interface SanityImage {
   hotspot?: SanityImageHotspot
 }
 
-export type ArrayMember<Member> = Member extends string | number
+export type ArrayMember<Member> = Member extends string | number | boolean
   ? Member
   : Member & {
       _key: string
