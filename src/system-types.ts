@@ -24,11 +24,17 @@ export interface SanityImage {
   hotspot?: SanityImageHotspot
 }
 
+export type ArrayMemberType<Member> = Member extends {
+  _type: infer Type
+}
+  ? Type
+  : string
+
 export type ArrayMember<Member> = Member extends string | number | boolean
   ? Member
   : Member & {
       _key: string
-      _type: string
+      _type: ArrayMemberType<Member>
     }
 
 // export type PortableTextBlock = Record<string, unknown>
