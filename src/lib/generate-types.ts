@@ -20,6 +20,7 @@ import camelCase from 'camelcase'
 import decamelize from 'decamelize'
 import resolveStudioConfig from './resolve-studio-config'
 import isEnoent from './is-enoent'
+import indent from './indent'
 
 /**
  * @public
@@ -252,10 +253,6 @@ function createArrayType(type: ArraySchemaType, { depth }: Context): string {
   }
 
   return `${arrayType}[]`
-}
-
-function indent(depth: number): string {
-  return '  '.repeat(depth)
 }
 
 async function loadSystemTypes(): Promise<string> {
