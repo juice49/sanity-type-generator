@@ -183,7 +183,13 @@ function createType(
     }
 
     if (['object', 'document'].includes(String(type.type))) {
-      return '{\n' + output + '\n' + indent(depth) + '}'
+      const object = '{\n' + output + '\n' + indent(depth) + '}'
+
+      if (nullable) {
+        return createNullable(object)
+      }
+
+      return object
     }
 
     if (nullable) {
