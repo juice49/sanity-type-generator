@@ -16,11 +16,11 @@ import {
   FieldDefinition,
 } from 'sanity'
 
-import camelCase from 'camelcase'
 import decamelize from 'decamelize'
 import resolveStudioConfig from './resolve-studio-config'
 import isEnoent from './is-enoent'
 import indent from './indent'
+import createTypeName from './create-type-name'
 
 declare module 'sanity' {
   export interface FieldDefinitionBase {
@@ -108,12 +108,6 @@ export async function generateTypes({
   for (const entry of output) {
     await maybeWriteFile(entry?.path, entry?.content)
   }
-}
-
-function createTypeName(name: string): string {
-  return camelCase(name, {
-    pascalCase: true,
-  })
 }
 
 interface Context {
