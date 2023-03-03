@@ -22,6 +22,14 @@ import resolveStudioConfig from './resolve-studio-config'
 import isEnoent from './is-enoent'
 import indent from './indent'
 
+declare module 'sanity' {
+  export interface FieldDefinitionBase {
+    typegen?: {
+      required?: boolean
+    }
+  }
+}
+
 /**
  * @public
  */
@@ -230,7 +238,7 @@ function createType(
         indent(depth + 1) +
         field.name +
         ': ' +
-        createType(field, depth + 1)
+        createType(field, depth + 1, !field.typegen?.required)
       )
     }, ''),
   )
