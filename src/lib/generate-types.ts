@@ -265,6 +265,7 @@ async function loadSystemTypes(): Promise<string> {
     path.join(
       path.dirname(fileURLToPath(import.meta.url)),
       '..',
+      '..',
       'src',
       'system-types.ts',
     ),
