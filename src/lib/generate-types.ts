@@ -17,17 +17,14 @@ import {
 } from 'sanity'
 
 import decamelize from 'decamelize'
+import { FieldOptions } from './field-options'
 import resolveStudioConfig from './resolve-studio-config'
 import isEnoent from './is-enoent'
 import indent from './indent'
 import createTypeName from './create-type-name'
 
 declare module 'sanity' {
-  export interface FieldDefinitionBase {
-    typegen?: {
-      required?: boolean
-    }
-  }
+  interface FieldDefinitionBase extends FieldOptions {}
 }
 
 /**

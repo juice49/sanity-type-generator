@@ -35,11 +35,9 @@ defineField({
 Add the following module declaration to enable TypeScript support for the `typegen` option:
 
 ```ts
+import { FieldOptions } from 'sanity-type-generator'
+
 declare module 'sanity' {
-  export interface FieldDefinitionBase {
-    typegen?: {
-      required?: boolean
-    }
-  }
+  export interface FieldDefinitionBase extends FieldOptions {}
 }
 ```

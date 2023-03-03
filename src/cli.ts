@@ -1,5 +1,6 @@
 import { parseArgs } from 'node:util'
 import { generateTypes } from '.'
+export type { FieldOptions } from './lib/field-options'
 
 const force = parseArgs({
   options: {
