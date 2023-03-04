@@ -1,7 +1,3 @@
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { readFile } from 'node:fs/promises'
-
 import {
   type Schema,
   Workspace,
@@ -15,7 +11,6 @@ import {
 } from 'sanity'
 
 import { FieldOptions } from './field-options'
-import resolveStudioConfig from './resolve-studio-config'
 import indent from './indent'
 import createTypeName from './create-type-name'
 
@@ -41,12 +36,10 @@ export interface TypeEntry {
 /**
  * @public
  */
-export async function generateTypes(): Promise<TypeEntry[]> {
-  const [workspaces, systemTypes] = await Promise.all([
-    resolveStudioConfig(),
-    loadSystemTypes(),
-  ])
-
+export async function generateTypes(
+  workspaces: Workspace[],
+  systemTypes: string,
+): Promise<TypeEntry[]> {
   const schemasByWorkspaceName = getSchemasByWorkspaceName(workspaces)
 
   const output = Object.entries(schemasByWorkspaceName)
@@ -216,21 +209,6 @@ function createArrayType(type: ArraySchemaType, { depth }: Context): string {
   }
 
   return `${arrayType}[]`
-}
-
-async function loadSystemTypes(): Promise<string> {
-  return await readFile(
-    path.join(
-      path.dirname(fileURLToPath(import.meta.url)),
-      '..',
-      '..',
-      'src',
-      'system-types.ts',
-    ),
-    {
-      encoding: 'utf8',
-    },
-  )
 }
 
 function getSchemasByWorkspaceName(
