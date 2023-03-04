@@ -1,8 +1,6 @@
 import path from 'node:path'
-import { Stats } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import { readFile, writeFile, mkdir, stat } from 'node:fs/promises'
-import prompts from 'prompts'
+import { readFile } from 'node:fs/promises'
 
 import {
   type Schema,
@@ -16,38 +14,13 @@ import {
   FieldDefinition,
 } from 'sanity'
 
-import decamelize from 'decamelize'
 import { FieldOptions } from './field-options'
 import resolveStudioConfig from './resolve-studio-config'
-import isEnoent from './is-enoent'
 import indent from './indent'
 import createTypeName from './create-type-name'
 
 declare module 'sanity' {
   interface FieldDefinitionBase extends FieldOptions {}
-}
-
-/**
- * @public
- */
-export type FilenameGetter = (workspaceName: string) => string
-
-/**
- * @public
- */
-export interface Options {
-  destinationPath?: string
-  getFilename?: FilenameGetter
-  force?: boolean
-}
-
-const defaultDestinationPath = 'types'
-
-// TODO: Handle spaces, e.g. 'my workspace name'.
-const defaultGetFilename: FilenameGetter = workspaceName => {
-  return decamelize(workspaceName, {
-    separator: '-',
-  })
 }
 
 function entryHasOriginalSchema(
@@ -60,11 +33,15 @@ function entryHasOriginalSchema(
 /**
  * @public
  */
-export async function generateTypes({
-  destinationPath = defaultDestinationPath,
-  getFilename = defaultGetFilename,
-  force = false,
-}: Options = {}) {
+export interface TypeEntry {
+  workspaceName: string
+  content: string
+}
+
+/**
+ * @public
+ */
+export async function generateTypes(): Promise<TypeEntry[]> {
   const [workspaces, systemTypes] = await Promise.all([
     resolveStudioConfig(),
     loadSystemTypes(),
@@ -80,31 +57,12 @@ export async function generateTypes({
       }, systemTypes)
 
       return {
-        path: getFullDestinationPath(
-          destinationPath,
-          getFilename,
-          workspaceName,
-        ),
+        workspaceName,
         content: output,
       }
     })
 
-  await mkdir(destinationPath, {
-    recursive: true,
-  })
-
-  if (force) {
-    const writeFileOperations = output.map(({ path, content }) =>
-      writeFile(path, content),
-    )
-
-    await Promise.all(writeFileOperations)
-    return
-  }
-
-  for (const entry of output) {
-    await maybeWriteFile(entry?.path, entry?.content)
-  }
+  return output
 }
 
 interface Context {
@@ -285,41 +243,4 @@ function getSchemasByWorkspaceName(
     }),
     {},
   )
-}
-
-function getFullDestinationPath(
-  destinationPath: string,
-  getFilename: FilenameGetter,
-  workspaceName: string,
-): string {
-  return (
-    path.join(process.cwd(), destinationPath, getFilename(workspaceName)) +
-    '.ts'
-  )
-}
-
-async function maybeWriteFile(path: string, content: string): Promise<any> {
-  let stats: Stats | undefined
-
-  try {
-    stats = await stat(path)
-  } catch (error) {
-    if (!isEnoent(error)) {
-      throw error
-    }
-  }
-
-  if (stats) {
-    const { confirmWriteFile } = await prompts({
-      name: 'confirmWriteFile',
-      type: 'confirm',
-      message: `Overwrite "${path}"?`,
-    })
-
-    if (!confirmWriteFile) {
-      return
-    }
-  }
-
-  return writeFile(path, content)
 }
