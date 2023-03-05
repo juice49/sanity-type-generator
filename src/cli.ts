@@ -21,7 +21,7 @@ const force = parseArgs({
     loadSystemTypes(),
   ])
 
-  const types = await generateTypes(workspaces, systemTypes)
+  const types = generateTypes(workspaces, systemTypes)
 
   await writeTypeFiles(types, {
     force,

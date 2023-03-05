@@ -36,10 +36,10 @@ export interface TypeEntry {
 /**
  * @public
  */
-export async function generateTypes(
+export function generateTypes(
   workspaces: Workspace[],
   systemTypes: string,
-): Promise<TypeEntry[]> {
+): TypeEntry[] {
   const schemasByWorkspaceName = getSchemasByWorkspaceName(workspaces)
 
   const output = Object.entries(schemasByWorkspaceName)
