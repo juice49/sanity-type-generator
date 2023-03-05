@@ -71,7 +71,6 @@ const intrinsics: Omit<
   | 'document'
   // Handled by Studio.
   | 'geopoint'
-  | 'slug'
 > = {
   array: createArrayType,
   block: 'PortableTextBlock',
@@ -84,6 +83,7 @@ const intrinsics: Omit<
   image: 'SanityImage',
   number: 'number',
   reference: createReferenceType,
+  slug: 'SanitySlug',
   string: 'string',
   url: 'string',
   text: 'string',

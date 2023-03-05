@@ -37,4 +37,9 @@ export type ArrayMember<Member> = Member extends string | number | boolean
       _type: ArrayMemberType<Member>
     }
 
+export interface SanitySlug {
+  _type: 'slug'
+  current: string
+}
+
 // export type PortableTextBlock = Record<string, unknown>
