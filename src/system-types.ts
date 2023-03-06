@@ -42,4 +42,23 @@ export interface SanitySlug {
   current: string
 }
 
+export interface SanityGeopoint {
+  _type: 'geopoint'
+
+  /**
+   * Latitude
+   */
+  lat: number | null
+
+  /**
+   * Longitude
+   */
+  lng: number | null
+
+  /**
+   * Altitude
+   */
+  alt: number | null
+}
+
 // export type PortableTextBlock = Record<string, unknown>

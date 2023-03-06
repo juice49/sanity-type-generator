@@ -73,10 +73,7 @@ const intrinsics: Omit<
     keyof IntrinsicDefinitions,
     string | ((type: any, context: Context) => string)
   >,
-  | 'object'
-  | 'document'
-  // Handled by Studio.
-  | 'geopoint'
+  'object' | 'document'
 > = {
   array: createArrayType,
   block: 'PortableTextBlock',
@@ -86,6 +83,7 @@ const intrinsics: Omit<
   datetime: 'string',
   email: 'string',
   file: 'SanityFileAsset',
+  geopoint: 'SanityGeopoint',
   image: 'SanityImage',
   number: 'number',
   reference: createReferenceType,
