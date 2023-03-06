@@ -39,6 +39,10 @@ export type ArrayMember<Member> = Member extends string | number | boolean
 
 export interface SanitySlug {
   _type: 'slug'
+
+  /**
+   * The current value of the slug.
+   */
   current: string
 }
 
