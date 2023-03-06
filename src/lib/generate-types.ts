@@ -46,6 +46,12 @@ export function generateTypes(
     .filter(entryHasOriginalSchema)
     .map(([workspaceName, { _original: schema }]) => {
       const output = schema.types.reduce((output, entry) => {
+        const type = createType(entry)
+
+        if (typeof type === 'undefined') {
+          return output
+        }
+
         return output + '\n' + createType(entry)
       }, systemTypes)
 
@@ -107,13 +113,19 @@ function createType(
   type: SchemaTypeDefinition | BaseSchemaType | FieldDefinition,
   depth: number = 0,
   nullable: boolean = true,
-): string {
-  function template(output: string): string {
+): string | undefined {
+  function template(output: string): string | undefined {
     if (depth === 0) {
       let typeField = ''
 
       if (type.type === 'document') {
         typeField = `  _type: '${type.name}'\n`
+      }
+
+      const isOverridden = isIntrinsic(type.name)
+
+      if (isOverridden) {
+        return
       }
 
       const extension =
