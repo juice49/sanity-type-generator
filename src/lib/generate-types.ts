@@ -18,6 +18,8 @@ declare module 'sanity' {
   interface FieldDefinitionBase extends FieldOptions {}
 }
 
+const defaultWorkspaceName = 'types'
+
 function entryHasOriginalSchema(
   entry: [string, Schema],
 ): entry is [string, Schema & Required<Pick<Schema, '_original'>>] {
@@ -225,7 +227,7 @@ function getSchemasByWorkspaceName(
   workspaces: Workspace[],
 ): Record<string, Schema> {
   return workspaces.reduce<Record<string, Schema>>(
-    (schemaByWorkspaceName, { name, schema }) => ({
+    (schemaByWorkspaceName, { name = defaultWorkspaceName, schema }) => ({
       ...schemaByWorkspaceName,
       [name]: schema,
     }),
