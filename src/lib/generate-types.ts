@@ -186,11 +186,14 @@ function createType(
 
   return template(
     (type.fields ?? []).reduce((reduced, field, index) => {
+      const optional = field.typegen?.required ? '' : '?'
+
       return (
         reduced +
         (index === 0 ? '' : '\n') +
         indent(depth + 1) +
         field.name +
+        optional +
         ': ' +
         createType(field, depth + 1, !field.typegen?.required)
       )
