@@ -175,7 +175,6 @@ function createType(
     return template(intrinsic)
   }
 
-  // if (type.type !== 'object' && type.type !== 'document') {
   if (!('fields' in type)) {
     if (typeof type.type !== 'string') {
       throw new Error('Type is not a string.')
